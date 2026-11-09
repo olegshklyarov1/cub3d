@@ -6,7 +6,7 @@
 /*   By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 17:43:00 by olshklya          #+#    #+#             */
-/*   Updated: 2026/11/04 14:52:21 by olshklya         ###   ########.fr       */
+/*   Updated: 2026/11/09 13:32:48 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
+# define WIN_W 1280
+# define WIN_H 720
+
+typedef enum e_dir
+{
+	NO,
+	SO,
+	EA,
+	WE
+}	t_dir;
+
 typedef struct	s_player
 {
 	double	pos_x; //player position on 2d grid
@@ -28,12 +39,12 @@ typedef struct	s_player
 	double	dir_y;
 	double	plane_x; //camera plain component
 	double	plane_y;
-	int	mov_w;	// event hooks
-	int	mov_s;
-	int	mov_a;
-	int	mov_d;
-	int	rotate_l; //rotation flags
-	int	rotate_r;
+	int		mov_w;	// event hooks
+	int		mov_s;
+	int		mov_a;
+	int		mov_d;
+	int		rotate_l; //rotation flags
+	int		rotate_r;
 }	t_player;
 
 
@@ -49,16 +60,23 @@ typedef struct	s_img
 	int		bpp; //bits per pixel (usually 32)
 	int		line_len; //size of data line
 	int		endian; //byte architecture
-} t_img;
+}	t_img;
 
 typedef struct	s_tex
 {
-
+	t_img	img;
+	char	*path;
+	int		width;
+	int		height;
 }	t_tex;
 
 typedef struct	s_map
 {
-
+	char	**grid;
+	int		width;
+	int		height;
+	int		floor_color;
+	int		ceil_color;
 }	t_map;
 
 //Main structure to be passed to all functions
