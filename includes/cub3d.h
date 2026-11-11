@@ -6,7 +6,7 @@
 /*   By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 17:43:00 by olshklya          #+#    #+#             */
-/*   Updated: 2026/11/09 13:32:48 by olshklya         ###   ########.fr       */
+/*   Updated: 2026/11/11 17:27:24 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,10 @@ typedef struct s_cub
 	t_tex		tex[4]; //north, south, east, west texture assets
 }	t_cub;
 
+
+//init
+
+void	init_data(t_cub *cub);
+void	init_img(t_img *img);
 
 #endif
