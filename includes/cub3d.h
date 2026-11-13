@@ -74,7 +74,7 @@ typedef struct s_cub {
   void *mlx;       // mlx instance pointer
   void *win;       // mlx window pointer
   t_img img;       // main screen frame buffer
-  t_map map;       // parsing and map data
+  t_map *map;      // parsing and map data
   t_player player; // player
   t_ray ray;       // raycasting map
   t_tex tex[4];    // north, south, east, west texture assets
@@ -89,5 +89,6 @@ void init_img(t_img *img);
 char *get_next_line(int fd);
 // parsing
 int pars_cub(t_cub *cub, char *path);
+int check_chars(t_map *map);
 
 #endif

@@ -13,7 +13,7 @@
 NAME		= cub3D
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -std=gnu89
+CFLAGS		= -g -Wall -Wextra -Werror -std=gnu89
 
 INCLUDES	= -I includes -I libft -I mlx
 
@@ -27,6 +27,7 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 
 SRCS		= parsing/parse.c\
+					parsing/check.c\
 					gnl/get_next_line.c\
 					gnl/get_next_line_utils.c\
 					main.c

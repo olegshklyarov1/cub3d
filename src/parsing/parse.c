@@ -31,6 +31,21 @@ int count_map(const char *path, int *height, int *width) {
   return (1);
 }
 
+void free_map(t_map *map) {
+  int y;
+
+  y = 0;
+  if (!map)
+    return;
+  while (y < map->height) {
+    if (map->grid[y])
+      free(map->grid[y]);
+    y++;
+  }
+  free(map->grid);
+  free(map);
+}
+
 int fill_grid(t_map *map, int fd) {
   char *line;
   int i;
@@ -77,6 +92,14 @@ int pars_cub(t_cub *cub, char *path) {
   (void)cub;
   if (!check_extension(path))
     return (write(2, "Error\nMap must have .cub extension\n", 35), 0);
+  cub->map = load_map(path);
+  if (!cub->map)
+    return (write(2, "Error\nCannot load map\n", 22), 0);
+  if (!check_chars(cub->map)) {
+    free_map(cub->map);
+    return (write(2, "Error\nInvalid map characters or borders\n", 40), 0);
+  }
+  // if (!check_char(cub))
   printf("passed");
   return 0;
 }

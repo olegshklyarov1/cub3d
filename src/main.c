@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3d.h"
+
+/*void init(t_cub *cub) {
+  t_player player;
+  cub->player = player;
+}*/
+
 int main() {
   t_cub cub;
   pars_cub(&cub, "map.cub");
