@@ -13,7 +13,8 @@
 NAME		= cub3D
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -std=gnu89
+
 INCLUDES	= -I includes -I libft -I mlx
 
 LIBFT_DIR	= libft
@@ -25,7 +26,10 @@ LIBS		= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 SRC_DIR		= src
 OBJ_DIR		= obj
 
-SRCS		= main.c
+SRCS		= parsing/parse.c\
+					gnl/get_next_line.c\
+					gnl/get_next_line_utils.c\
+					main.c
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -44,7 +48,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) CFLAGS="-O3 -std=gnu89 -I.. "
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

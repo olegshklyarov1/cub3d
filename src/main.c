@@ -9,4 +9,9 @@
 /*   Updated: 2026/11/02 15:43:59 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "../includes/cub3d.h"
+int main() {
+  t_cub cub;
+  pars_cub(&cub, "map.cub");
+  return 1;
+}
