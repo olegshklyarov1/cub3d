@@ -18,6 +18,7 @@
 
 int main() {
   t_cub cub;
+  init_data(&cub);
   pars_cub(&cub, "map.cub");
   return 1;
 }

@@ -99,7 +99,11 @@ int pars_cub(t_cub *cub, char *path) {
     free_map(cub->map);
     return (write(2, "Error\nInvalid map characters or borders\n", 40), 0);
   }
-  // if (!check_char(cub))
+  if (!find_player(cub->player, cub->map)) {
+    free_map(cub->map);
+    return (write(2, "Error\nNo Player Found\n", 22), 1);
+  }
+  printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
   return 0;
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static char *join_and_free(char *s1, char *s2) {
   char *result;

@@ -71,13 +71,13 @@ typedef struct s_map {
 
 // Main structure to be passed to all functions
 typedef struct s_cub {
-  void *mlx;       // mlx instance pointer
-  void *win;       // mlx window pointer
-  t_img img;       // main screen frame buffer
-  t_map *map;      // parsing and map data
-  t_player player; // player
-  t_ray ray;       // raycasting map
-  t_tex tex[4];    // north, south, east, west texture assets
+  void *mlx;        // mlx instance pointer
+  void *win;        // mlx window pointer
+  t_img img;        // main screen frame buffer
+  t_map *map;       // parsing and map data
+  t_player *player; // player
+  t_ray ray;        // raycasting map
+  t_tex tex[4];     // north, south, east, west texture assets
 } t_cub;
 
 // init
@@ -90,5 +90,6 @@ char *get_next_line(int fd);
 // parsing
 int pars_cub(t_cub *cub, char *path);
 int check_chars(t_map *map);
+int find_player(t_player *player, t_map *map);
 
 #endif

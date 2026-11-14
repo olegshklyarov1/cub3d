@@ -26,8 +26,10 @@ LIBS		= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 SRC_DIR		= src
 OBJ_DIR		= obj
 
-SRCS		= parsing/parse.c\
+SRCS		= init/init_data.c\
+					parsing/parse.c\
 					parsing/check.c\
+					parsing/utils.c\
 					gnl/get_next_line.c\
 					gnl/get_next_line_utils.c\
 					main.c
