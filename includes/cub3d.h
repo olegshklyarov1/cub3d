@@ -92,4 +92,5 @@ int pars_cub(t_cub *cub, char *path);
 int check_chars(t_map *map);
 int find_player(t_player *player, t_map *map);
 
+int count_map(const char *path, int *height, int *width);
 #endif

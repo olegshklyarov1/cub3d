@@ -9,20 +9,43 @@ int check_extension(const char *path) {
   return (ft_strncmp(path + len - 4, ".cub", 4) == 0);
 }
 
+int find_map(char *line) {
+  int i;
+  int valid;
+
+  i = 0;
+  valid = 0;
+  while (line[i]) {
+    if (line[i] == '0' || line[i] == '1' || line[i] == 'N' || line[i] == 'S' ||
+        line[i] == 'E' || line[i] == 'W')
+      valid = 1;
+    else if (line[i] != ' ' && line[i] != '\n')
+      return (0);
+    i++;
+  }
+  return (valid);
+}
+
+/* potentielment ajouter un strlen qui verifie le dernier caracter ou ligne*/
 int count_map(const char *path, int *height, int *width) {
   char *line;
-  int fd;
+  int fd, len;
 
+  len = 0;
   *height = 0;
   *width = 0;
   fd = open(path, O_RDONLY);
   if (fd == -1)
     return (0);
   line = get_next_line(fd);
-  if (!line)
-    return (close(fd), 0);
-  *width = ft_strlen(line);
+  while (line && !find_map(line)) {
+    free(line);
+    line = get_next_line(fd);
+  }
   while (line) {
+    len = ft_strlen(line);
+    if (len > *width)
+      *width = len - 1;
     (*height)++;
     free(line);
     line = get_next_line(fd);
@@ -99,10 +122,10 @@ int pars_cub(t_cub *cub, char *path) {
     free_map(cub->map);
     return (write(2, "Error\nInvalid map characters or borders\n", 40), 0);
   }
-  if (!find_player(cub->player, cub->map)) {
+  /*if (!find_player(cub->player, cub->map)) {
     free_map(cub->map);
     return (write(2, "Error\nNo Player Found\n", 22), 1);
-  }
+  }*/
   printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
   return 0;
