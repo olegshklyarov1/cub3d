@@ -44,8 +44,9 @@ int count_map(const char *path, int *height, int *width) {
   }
   while (line) {
     len = ft_strlen(line);
-    if (line[len - 1] == '\n')
-      len = len - 1;
+    if (len > 0)
+      if (line[len - 1] == '\n')
+        len = len - 1;
     if (len > *width)
       *width = len;
     (*height)++;
@@ -101,7 +102,6 @@ int fill_grid(t_map *map, int fd) {
     line = get_next_line(fd);
   }
   while (line && i < map->height) {
-    cpy_map(map, line, i);
     if (!cpy_map(map, line, i)) {
       free(line);
       return (0);
@@ -126,8 +126,6 @@ t_map *load_map(const char *path) {
   map = malloc(sizeof(t_map));
   if (!map)
     return (NULL);
-  if (width * 64 > 1980 || height * 64 > 1080)
-    return (free(map), NULL);
   map->height = height;
   map->width = width;
   map->grid = malloc(sizeof(char *) * map->height);
@@ -136,7 +134,10 @@ t_map *load_map(const char *path) {
   fd = open(path, O_RDONLY);
   if (fd == -1)
     return (free(map->grid), free(map), NULL);
-  fill_grid(map, fd);
+  if (!fill_grid(map, fd)) {
+    free_map(map);
+    return (NULL);
+  }
   close(fd);
   return (map);
 }
@@ -151,10 +152,14 @@ int pars_cub(t_cub *cub, char *path) {
     free_map(cub->map);
     return (write(2, "Error\nInvalid map characters or borders\n", 40), 0);
   }
-  /*if (!find_player(cub->player, cub->map)) {
+  if (!find_player(cub->player, cub->map)) {
     free_map(cub->map);
-    return (write(2, "Error\nNo Player Found\n", 22), 1);
-  }*/
+    return (write(2, "Error\nNo Player Found\n", 22), 0);
+  }
+  if (!check_map(cub)) {
+    free_map(cub->map);
+    return (write(2, "Error\nNeed closed map\n", 22), 0);
+  }
   printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
   return 0;

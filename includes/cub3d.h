@@ -91,6 +91,11 @@ char *get_next_line(int fd);
 int pars_cub(t_cub *cub, char *path);
 int check_chars(t_map *map);
 int find_player(t_player *player, t_map *map);
-
+t_map *load_map(const char *path);
+void free_map(t_map *map);
 int count_map(const char *path, int *height, int *width);
+int floodfill(t_map *map, char **tgrid, int x, int y);
+char **dup_grid(t_map *map);
+int free_tgrid(char **tgrid, int height);
+int check_map(t_cub *cub);
 #endif

@@ -15,13 +15,34 @@
   t_player player;
   cub->player = player;
 }*/
-/*
+
 int main() {
   t_cub cub;
   init_data(&cub);
   pars_cub(&cub, "map.cub");
   return 1;
-}*/
+}
+/*void print_map(t_map *map) {
+  int i;
+
+  i = 0;
+  while (i < map->height) {
+    printf("%s\n", map->grid[i]);
+    i++;
+  }
+}
+int main(void) {
+  t_map *map;
+
+  map = load_map("map.cub");
+  if (!map) {
+    printf("Erreur chargement map\n");
+    return (1);
+  }
+  print_map(map);
+  free_map(map);
+  return (0);
+}
 
 int main(void) {
   int height;
@@ -36,4 +57,4 @@ int main(void) {
   printf("Map width  : %d\n", width);
 
   return (0);
-}
+}*/
