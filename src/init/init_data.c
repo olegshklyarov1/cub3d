@@ -36,6 +36,14 @@ void init_img(t_img *img) {
   img->endian = 0;
 }
 
+void init_map(t_map *map) {
+  int i;
+  i = 0;
+  while (i < map->height)
+    map->grid[i++] = NULL;
+  i = 0;
+}
+
 void init_data(t_cub *cub) {
   cub->mlx = NULL;
   cub->win = NULL;

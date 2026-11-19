@@ -84,7 +84,7 @@ typedef struct s_cub {
 
 void init_data(t_cub *cub);
 void init_img(t_img *img);
-
+void init_map(t_map *map);
 // gnl
 char *get_next_line(int fd);
 // parsing

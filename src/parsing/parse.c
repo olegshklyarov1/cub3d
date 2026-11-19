@@ -44,8 +44,10 @@ int count_map(const char *path, int *height, int *width) {
   }
   while (line) {
     len = ft_strlen(line);
+    if (line[len - 1] == '\n')
+      len = len - 1;
     if (len > *width)
-      *width = len - 1;
+      *width = len;
     (*height)++;
     free(line);
     line = get_next_line(fd);
@@ -69,20 +71,47 @@ void free_map(t_map *map) {
   free(map);
 }
 
+int cpy_map(t_map *map, char *line, int i) {
+  int n;
+  int len;
+  n = 0;
+  len = ft_strlen(line);
+  if (len > 0 && line[len - 1] == '\n')
+    len = len - 1;
+  map->grid[i] = malloc(sizeof(char) * map->width + 1);
+  if (!map->grid[i])
+    return (0);
+  ft_memcpy(map->grid[i], line, len);
+  while (n + len < map->width) {
+    map->grid[i][len + n] = ' ';
+    n++;
+  }
+  map->grid[i][len + n] = '\0';
+  return (1);
+}
+
 int fill_grid(t_map *map, int fd) {
   char *line;
   int i;
-
   i = 0;
-  while (i < map->height)
-    map->grid[i++] = NULL;
-  i = 0;
+  init_map(map);
   line = get_next_line(fd);
-  while (line && i < map->height) {
-    map->grid[i] = line;
-    i++;
+  while (line && !find_map(line)) {
+    free(line);
     line = get_next_line(fd);
   }
+  while (line && i < map->height) {
+    cpy_map(map, line, i);
+    if (!cpy_map(map, line, i)) {
+      free(line);
+      return (0);
+    }
+    free(line);
+    line = get_next_line(fd);
+    i++;
+  }
+  if (i != map->height)
+    return (0);
   return (1);
 }
 
