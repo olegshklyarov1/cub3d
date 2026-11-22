@@ -162,5 +162,5 @@ int pars_cub(t_cub *cub, char *path) {
   }
   printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
-  return 0;
+  return 1;
 }

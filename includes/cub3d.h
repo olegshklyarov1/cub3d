@@ -26,7 +26,7 @@
 #define WIN_H 720
 
 typedef enum e_dir { NO, SO, EA, WE } t_dir;
-
+typedef enum e_conf { tNO, tSO, tEA, tWE, cF, cC } t_conf;
 typedef struct s_player {
   double pos_x; // player position on 2d grid
   double pos_y;
@@ -98,4 +98,6 @@ int floodfill(t_map *map, char **tgrid, int x, int y);
 char **dup_grid(t_map *map);
 int free_tgrid(char **tgrid, int height);
 int check_map(t_cub *cub);
+int find_map(char *line);
+
 #endif
