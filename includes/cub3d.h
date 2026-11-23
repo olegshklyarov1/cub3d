@@ -6,7 +6,7 @@
 /*   By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 17:43:00 by olshklya          #+#    #+#             */
-/*   Updated: 2026/11/11 17:27:24 by olshklya         ###   ########.fr       */
+/*   Updated: 2026/11/23 14:40:13 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,24 @@ typedef struct	s_player
 
 typedef struct s_ray
 {
-	
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int	map_x;
+	int	map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_dist;
+	int	step_x;
+	int	step_y;
+	int	side;
+	int	line_h;
+	int	draw_start;
+	int	draw_end;
+	int tex_x;
+	double	wall_x;
 }	t_ray;
 
 typedef struct	s_img
@@ -96,5 +113,6 @@ typedef struct s_cub
 
 void	init_data(t_cub *cub);
 void	init_img(t_img *img);
+void	init_ray(t_ray *ray);
 
 #endif
