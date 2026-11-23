@@ -20,6 +20,7 @@ int main() {
   t_cub cub;
   init_data(&cub);
   pars_cub(&cub, "map.cub");
+  printf("%s", cub.tex[0].path);
   return 1;
 }
 /*void print_map(t_map *map) {

@@ -100,4 +100,5 @@ int free_tgrid(char **tgrid, int height);
 int check_map(t_cub *cub);
 int find_map(char *line);
 
+int prcs_conf(t_cub *cub, char *path);
 #endif

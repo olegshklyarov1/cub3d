@@ -160,6 +160,10 @@ int pars_cub(t_cub *cub, char *path) {
     free_map(cub->map);
     return (write(2, "Error\nNeed closed map\n", 22), 0);
   }
+  if (!prcs_conf(cub, path)) {
+    free_map(cub->map);
+    return (write(2, "Erro\nNo valid conf\n", 19), 0);
+  }
   printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
   return 1;
