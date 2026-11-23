@@ -30,6 +30,7 @@ SRCS		= init/init_data.c\
 					parsing/parse.c\
 					parsing/check.c\
 					parsing/utils.c\
+					parsing/config.c \
 					gnl/get_next_line.c\
 					gnl/get_next_line_utils.c\
 					main.c
