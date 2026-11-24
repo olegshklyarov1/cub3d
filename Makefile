@@ -6,7 +6,7 @@
 #    By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/03 17:31:09 by olshklya          #+#    #+#              #
-#    Updated: 2026/11/03 17:31:33 by olshklya         ###   ########.fr        #
+#    Updated: 2026/11/24 15:47:25 by olshklya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,13 @@ LIBS		= -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 SRC_DIR		= src
 OBJ_DIR		= obj
 
-SRCS		= main.c
+SRCS		= main.c \
+			init/init_data.c \
+			init/init_mlx.c \
+			init/init_textures.c \
+			hooks/hooks.c \
+			utils/exit.c  \
+			render/render.c
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

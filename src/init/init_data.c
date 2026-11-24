@@ -6,7 +6,7 @@
 /*   By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 17:10:29 by olshklya          #+#    #+#             */
-/*   Updated: 2026/11/23 15:01:05 by olshklya         ###   ########.fr       */
+/*   Updated: 2026/11/24 14:30:24 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,29 @@ void	init_img(t_img *img)
 	img->endian = 0;
 }
 
+void	init_tex(t_tex *tex)
+{
+	init_img(&tex->img);
+	tex->path = NULL;
+	tex->width = 0;
+	tex->height = 0;
+
+}
+
 void	init_data(t_cub *cub)
 {
+	int	i;
+
 	cub->mlx = NULL;
 	cub->win = NULL;
+	init_img(&cub->img);
+	init_map(&cub->map);
 	init_player(&cub->player);
+	init_ray(&cub->ray);
+	i = 0;
+	while (i < 4)
+	{
+		init_tex(&cub->tex[i]);
+		i++;
+	}
 }

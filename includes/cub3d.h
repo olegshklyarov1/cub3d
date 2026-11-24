@@ -6,7 +6,7 @@
 /*   By: olshklya <olshklya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/03 17:43:00 by olshklya          #+#    #+#             */
-/*   Updated: 2026/11/23 14:40:13 by olshklya         ###   ########.fr       */
+/*   Updated: 2026/11/24 15:45:34 by olshklya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
@@ -22,6 +23,13 @@
 
 # define WIN_W 1280
 # define WIN_H 720
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
 
 typedef enum e_dir
 {
@@ -114,5 +122,16 @@ typedef struct s_cub
 void	init_data(t_cub *cub);
 void	init_img(t_img *img);
 void	init_ray(t_ray *ray);
+int		init_mlx(t_cub *cub);
+void	setup_hooks(t_cub *cub);
+int		init_textures(t_cub *cub);
+void	free_textures(t_cub *cub);
+
+int		key_press(int key, t_cub *cub);
+int		key_release(int key, t_cub *cub);
+int		close_window(t_cub *cub);
+int		render(t_cub *cub);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	clean_exit(t_cub *cub, int code);
 
 #endif
