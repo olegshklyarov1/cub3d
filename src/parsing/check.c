@@ -1,14 +1,13 @@
 #include "../../includes/cub3d.h"
 #include <stdio.h>
 
-int free_tgrid(char **tgrid, int height) {
+void free_tgrid(char **tgrid, int height) {
   int y;
 
   y = 0;
   while (y < height)
     free(tgrid[y++]);
   free(tgrid);
-  return (0);
 }
 
 char **dup_grid(t_map *map) {
@@ -16,7 +15,7 @@ char **dup_grid(t_map *map) {
   int y;
 
   y = 0;
-  copy = malloc(sizeof(char *) * map->height);
+  copy = calloc(sizeof(char *), map->height);
   if (!copy)
     return (NULL);
   while (y < map->height) {
@@ -66,7 +65,7 @@ int verif_w(int y, int x, t_map *map) {
 int check_chars(t_map *map) {
   int y;
   int x;
-
+  // char **grid;
   y = 0;
   while (y < map->height) {
     x = 0;

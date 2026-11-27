@@ -96,9 +96,11 @@ void free_map(t_map *map);
 int count_map(const char *path, int *height, int *width);
 int floodfill(t_map *map, char **tgrid, int x, int y);
 char **dup_grid(t_map *map);
-int free_tgrid(char **tgrid, int height);
+void free_tgrid(char **tgrid, int height);
 int check_map(t_cub *cub);
 int find_map(char *line);
+void free_split(char **split);
 
+char *cleanN(char *line);
 int prcs_conf(t_cub *cub, char *path);
 #endif

@@ -19,35 +19,75 @@ int get_conf(char *line, int *found, t_conf type, t_cub *cub) {
       cub->tex[type].path = ft_strdup(line);
       if (!cub->tex[type].path)
         return (0);
+      cleanN(cub->tex[type].path);
     }
     found[type]++;
   }
   return (1);
 }
+int verif_form(char *line) {
+  int nb;
+  int verif;
 
+  nb = 0;
+  verif = 0;
+  while (*line && *line != '\n') {
+    if (*line >= '0' && *line <= '9')
+      nb++;
+    else if (*line == ',' && nb > 0 && verif < 2) {
+      nb = 0;
+      verif++;
+    } else
+      return (1);
+    line++;
+  }
+  if (verif != 2 || nb == 0)
+    return (1);
+  return (0);
+}
+
+int conv_color(char **rgb) {
+  int r, g, b, color;
+  r = ft_atoi(rgb[0]);
+  g = ft_atoi(rgb[1]);
+  b = ft_atoi(rgb[2]);
+  if (r > 255 || g > 255 || b > 255)
+    return (-1);
+  if (r < 0 || g < 0 || b < 0)
+    return (-1);
+  color = (r << 16) | (g << 8) | b;
+  return (color);
+}
 int get_rgb(char *line, int *found, t_conf type, t_cub *cub) {
-  /*int r, g, b;
+  int color;
   char **rgb;
   if (type >= cF) {
-    // verif conf
-    rgb = ft_split(line, ',');
-    r = ft_atoi(rgb[0]);
-    g = ft_atoi(rgb[1]);
-    b = ft_atoi(rgb[2]);
-     convert rgb n save
-  found[type]++;
-}
-return (1);
-*/
-
-  (void)line;
-  (void)cub;
+    if (found[type] == 0) {
+      if (line[1] != ' ' && line[1] != '\t')
+        return (0);
+      line += 1;
+      line = skip_wspace(line);
+      if (verif_form(line))
+        return (0);
+      rgb = ft_split(line, ',');
+      if (!rgb)
+        return (0);
+      color = conv_color(rgb);
+      free_split(rgb);
+      if (color == -1)
+        return (0);
+      if (type == cF)
+        cub->map->floor_color = color;
+      else if (type == cC)
+        cub->map->ceil_color = color;
+    }
+  }
   if (type >= cF)
     found[type]++;
   return (1);
 }
 
-int verif_conf(t_cub *cub, int *found) {
+int verif_conf(int *found) {
   int i;
   i = 0;
 
@@ -80,6 +120,7 @@ int prcs_conf(t_cub *cub, char *path) {
   int found[6] = {0};
   char *line, *start;
   int id, fd;
+
   id = -1;
   fd = open(path, O_RDONLY);
   if (fd == -1)
@@ -95,7 +136,7 @@ int prcs_conf(t_cub *cub, char *path) {
         id = -1;
         break;
       }
-      if (!get_rgb(line, found, id, cub)) {
+      if (!get_rgb(start, found, id, cub)) {
         id = -1;
         break;
       }
@@ -105,7 +146,7 @@ int prcs_conf(t_cub *cub, char *path) {
   }
   free(line);
   close(fd);
-  if (verif_conf(cub, found) || id == -1)
+  if (verif_conf(found) || id == -1)
     return (0);
   return (1);
 }

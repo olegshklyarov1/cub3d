@@ -103,6 +103,7 @@ int fill_grid(t_map *map, int fd) {
   }
   while (line && i < map->height) {
     if (!cpy_map(map, line, i)) {
+      close(fd);
       free(line);
       return (0);
     }
@@ -110,6 +111,8 @@ int fill_grid(t_map *map, int fd) {
     line = get_next_line(fd);
     i++;
   }
+  free(line);
+  close(fd);
   if (i != map->height)
     return (0);
   return (1);
@@ -123,12 +126,12 @@ t_map *load_map(const char *path) {
 
   if (!count_map(path, &height, &width))
     return (NULL);
-  map = malloc(sizeof(t_map));
+  map = calloc(sizeof(t_map), 1);
   if (!map)
     return (NULL);
   map->height = height;
   map->width = width;
-  map->grid = malloc(sizeof(char *) * map->height);
+  map->grid = calloc(sizeof(char *), map->height);
   if (!map->grid)
     return (free(map), NULL);
   fd = open(path, O_RDONLY);
@@ -138,11 +141,10 @@ t_map *load_map(const char *path) {
     free_map(map);
     return (NULL);
   }
-  close(fd);
   return (map);
 }
+
 int pars_cub(t_cub *cub, char *path) {
-  (void)cub;
   if (!check_extension(path))
     return (write(2, "Error\nMap must have .cub extension\n", 35), 0);
   cub->map = load_map(path);
@@ -162,7 +164,7 @@ int pars_cub(t_cub *cub, char *path) {
   }
   if (!prcs_conf(cub, path)) {
     free_map(cub->map);
-    return (write(2, "Erro\nNo valid conf\n", 19), 0);
+    return (write(2, "Error\nNo valid conf\n", 20), 0);
   }
   printf("%f %f", cub->player->pos_x, cub->player->pos_y);
   printf("passed");
